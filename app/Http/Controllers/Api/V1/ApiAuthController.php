@@ -54,8 +54,16 @@ class ApiAuthController extends ApiController
 
     public function getAuthUser(Request $request)
     {
-        $user = JWTAuth::toUser($request->token);
-        return response()->json(['result' => $user]);
+        try {
+            $token = JWTAuth::getToken();
+            if (!$token) {
+                throw new Exception('Token not provided', 500);
+            }
+            $user = JWTAuth::toUser($token);
+        } catch (Exception $e) {
+            return $this->jsonResponse(['error' => $e->getMessage()], CODE_SERVER_ERROR);
+        }
+        return $this->jsonResponse(['user' => $user], 200);
     }
 
     public function token()
