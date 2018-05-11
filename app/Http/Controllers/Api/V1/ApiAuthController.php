@@ -67,9 +67,10 @@ class ApiAuthController extends ApiController
             }
             $token = JWTAuth::refresh($token);
         } catch (Exception $e) {
-            return $this->jsonResponse(['error' => GENERAL_ERROR], CODE_SERVER_ERROR);
+            return $this->jsonResponse(['error' => $e->getMessage()], CODE_SERVER_ERROR);
         }
-        return $this->response->withArray(['token' => $token]);
+        return $this->jsonResponse(['token' => $token], 200);
+        //return $this->response->withArray(['token' => $token]);
     }
 
 }
