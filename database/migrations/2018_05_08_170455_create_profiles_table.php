@@ -14,7 +14,6 @@ class CreateProfilesTable extends Migration
     public function up()
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->increments('id');
 
             $table->string('full_name', 256)->nullable()->comment();

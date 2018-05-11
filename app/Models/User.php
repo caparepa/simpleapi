@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Models\Profile;
 use Illuminate\Notifications\Notifiable;
@@ -11,13 +11,15 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'status',
+        'username', 'email', 'password', 'status', 'remember_token', 'last_login'
     ];
 
     /**
@@ -31,7 +33,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function profile()
     {
-        return $this->hasOne(Profile::class . 'user_id');
+        return $this->hasOne(Profile::class, 'user_id');
     }
 
     /**
@@ -52,5 +54,53 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /**
+     * Accesors
+     */
+
+    /**
+     * Mutators
+     */
+
+    /**
+     * encrypts password
+     * @param $value
+     */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    /**
+     * TEST: sets the username automatically
+     * @param $value
+     */
+    public function setUsernameAttribute($value)
+    {
+        $val = explode('@', $value);
+        $this->attributes['username'] = str_slug($val[0], '_');
+    }
+
+    /**
+     * Get Data
+     */
+
+    /**
+     * @param $userId
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     */
+    public function getProfile($userId)
+    {
+        return $this->with('profile')->find($userId);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getUsersWithProfile()
+    {
+        return $this->with('profile')->get();
     }
 }
