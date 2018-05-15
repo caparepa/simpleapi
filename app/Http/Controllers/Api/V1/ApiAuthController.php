@@ -45,6 +45,7 @@ class ApiAuthController extends ApiController
         }
 
         return $this->jsonResponse([
+            'data' => '',
             'status' => STATUS_SUCCESS,
             'message' => LOGIN_SUCCESS,
             'token' => $token,

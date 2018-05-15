@@ -97,6 +97,8 @@ class UserController extends ApiController
 
             $token = JWTAuth::attempt($credentials);
 
+            logger()->info(" EMAIL ".$request->email." TOKEN ".$token);
+
             DB::commit();
 
             return new UserResource($user, USER_SAVED, STATUS_SUCCESS, $token);
