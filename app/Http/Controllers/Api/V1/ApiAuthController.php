@@ -53,7 +53,7 @@ class ApiAuthController extends ApiController
 
     }
 
-    public function getAuthUser(Request $request)
+    public function getAuthUser()
     {
         try {
             $token = JWTAuth::getToken();
