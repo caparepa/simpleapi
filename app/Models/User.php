@@ -28,7 +28,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'created_at', 'updated_at', 'deleted_at',
     ];
 
     public function profile()
@@ -86,6 +86,11 @@ class User extends Authenticatable implements JWTSubject
     /**
      * Get Data
      */
+
+    public function getUserByEmail($email)
+    {
+        return $this->where('email',$email)->firstOrFail();
+    }
 
     /**
      * @param $userId

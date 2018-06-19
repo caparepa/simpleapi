@@ -44,8 +44,10 @@ class ApiAuthController extends ApiController
             return $this->jsonResponse(['error' => TOKEN_FAILED], CODE_BAD_REQUEST);
         }
 
+        $user = $this->user->getUserByEmail($credentials['email']);
+
         return $this->jsonResponse([
-            'data' => '',
+            'data' => $user,
             'status' => STATUS_SUCCESS,
             'message' => LOGIN_SUCCESS,
             'token' => $token,

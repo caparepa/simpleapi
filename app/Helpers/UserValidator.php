@@ -18,7 +18,7 @@ class UserValidator extends BaseValidator
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|confirmed|min:8',
             'full_name' => 'required|string',
-            'birthdate' => 'required|string'
+            'birthdate' => 'required|date'
         ];
 
         $this->messages = [
@@ -30,6 +30,7 @@ class UserValidator extends BaseValidator
             'password.min' => 'The password must be at leat :min characters long',
             'full_name.required' => 'The name is required',
             'birthdate.required' => 'The birthdate is required',
+            'birthdate.date' => 'The date format is not valid',
         ];
 
         return $this->dataValidator($data, $this->rules, $this->messages);
@@ -46,6 +47,22 @@ class UserValidator extends BaseValidator
             'email.required' => 'The email is required.',
             'email.email' => 'The email format is invalid',
             'password.required' => 'The password is required',
+        ];
+
+        return $this->dataValidator($data, $this->rules, $this->messages);
+    }
+
+    public function validateUpdate($data)
+    {
+        $this->rules = [
+            'full_name' => 'required|string',
+            'birthdate' => 'required|date',
+        ];
+
+        $this->messages = [
+            'full_name.required' => 'The name is required.',
+            'birthdate.required' => 'The date of birth is required.',
+            'birthdate.date' => 'The date format is not valid',
         ];
 
         return $this->dataValidator($data, $this->rules, $this->messages);

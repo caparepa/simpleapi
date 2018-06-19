@@ -140,7 +140,12 @@ class UserController extends ApiController
                 throw new Exception(USER_PROFILE_NOT_FOUND, CODE_NOT_FOUND);
             }
 
-            if (!$user->profile()->update($data)) {
+            $validator = $this->validatorObj->validateUpdate($data);
+            if($validator->fails()){
+                return $this->validationErrorResponse($validator->errors(), CODE_BAD_REQUEST);
+            }
+
+            if (!$user->profile->update($data)) {
                 throw new Exception(USER_NOT_UPDATED, CODE_SERVER_ERROR);
             }
 
