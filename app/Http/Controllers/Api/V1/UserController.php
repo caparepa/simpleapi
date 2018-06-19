@@ -75,6 +75,8 @@ class UserController extends ApiController
 
             $data = $request->all();
             $credentials = $request->only(['email', 'password']);
+            $credentials['username'] = $request->email;
+
             $profileData = $request->only(['full_name','birthdate']);
 
             $validator = $this->validatorObj->validateRegister($data);
