@@ -106,6 +106,6 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getUsersWithProfile()
     {
-        return $this->with('profile')->get();
+        return $this->with('profile')->paginate(10);
     }
 }

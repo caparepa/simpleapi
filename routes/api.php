@@ -20,9 +20,15 @@ Route::group(['namespace' => 'Api\V1', 'middleware' => ['api', 'cors'], 'prefix'
     Route::get('auth/token', 'ApiAuthController@token');
     Route::get('auth/user', 'ApiAuthController@getAuthUser');
 
-    Route::get('users', 'UserController@index')->middleware('jwt.auth');
+    //Route::get('users', 'UserController@index');
     Route::get('users/{id}', 'UserController@getProfile');
     Route::put('users/{id}', 'UserController@update');
 
+
+});
+
+Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1'], function () {
+
+    Route::get('users', 'UserController@index');
 
 });
