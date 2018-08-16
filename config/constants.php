@@ -78,6 +78,7 @@ define('VALIDATION_ERROR', 'There are errors in the data provided');
 //TODO: change (or set) constants to multilanguage!
 define('NO_MESSAGE', '');
 define('GENERAL_ERROR', 'Something is wrong');
+define('SERVICE_NOT_FOUND', 'Service not found');
 
 define('TOKEN_FAILED', 'Failed to create token');
 define('TOKEN_INVALID', 'Invalid token');
